@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "startlocal":"nodemon index.js",
-    "heroku-postbuild": "cd ../b-keeper && npm install && npm run build"
+    "startlocal":"nodemon index.js"
   },
   "keywords": [],
   "author": "",
