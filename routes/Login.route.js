@@ -16,10 +16,10 @@ router.post('/', async (req,res)=>{
     if(!user)return res.status(400).send('Email or Password is incorrect');
     console.log('made it past log in validation')
     console.log(user)
-
+    
     //Checking Password
-    // const validPassword = await bcryptjs.compare(req.body.password,user.password)
-    // if(!validPassword)return res.status(400).send('Email or Password is incorrect');
+    const validPassword = await bcryptjs.compare(req.body.password,user.password)
+    if(!validPassword)return res.status(400).send('Email or Password is incorrect');
     console.log('you made it past log in validation again')
     //create and assign token
     const secret = process.env.TOKEN_SECRET

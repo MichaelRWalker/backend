@@ -19,7 +19,7 @@ router.post('/', verify, async (req, res) => {
     const totalOwed = req.body.totalOwed || 0
     // find user to append band to
     console.log('Checking for user')
-    const user = await User.findone({id:req.user._id})
+    const user = await User.findById(req.user._id)
     if (!user) return res.status(400).send('User Not Found');
     console.log('user found');
     console.log(user);
