@@ -7,7 +7,6 @@ const verify = require('../middlewares/verify');
 // Adds a new User
 router.post('/',async(req,res)=>{
     const{name,studioName,studioType,email} = req.body 
-
     try {
     // Validate the submitted user
     const {error} = userValidation(req.body);
