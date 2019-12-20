@@ -7,6 +7,9 @@
     "start": "node index.js"
   },
   "keywords": [],
+  "engine":{
+    "node":"10.16.0"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
