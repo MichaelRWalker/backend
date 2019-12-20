@@ -32,7 +32,6 @@ mongoose.connect(
 
 // Adding app Middlewares
 app.use(cors())
-app.use(express.static(path.join(__dirname,'../', 'b-keeper/build')));
 app.use(express.json());
 app.use('/login', loginRoute);
 app.use('/user', userRoute);
