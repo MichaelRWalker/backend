@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const {User} = require('../models/models');
 const userValidation = require('../validation/User.validation');
-const bcryptjs = require('bcryptJs');
+const bcryptjs = require('bcryptjs');
 const verify = require('../middlewares/verify');
 
 // Adds a new User
