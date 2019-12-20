@@ -12,26 +12,33 @@ router.get('/', verify, async (req, res) => {
 });
 
 router.post('/', verify, async (req, res) => {
-
     try{
     const {name,genre,email} = req.body 
     const notes = req.body.notes || '';
     const members = req.body.members || [];
     const totalOwed = req.body.totalOwed || 0
     // find user to append band to
+    console.log('Checking for user')
     const user = await User.findById(req.user._id)
     if (!user) return res.status(400).send('User Not Found');
+    console.log('user found');
+    console.log(user);
     // check to see if band already exists
     const bandExists = user.artists.some(artist => artist.name === req.body.name)
     if (bandExists) return res.status(400).send('That band already exists' + user)
+    console.log('artist is unique adding!')
     // check to see if it fits schema
     const artist = {...{name,genre,email},...{notes,members,totalOwed}};
+    console.log(artist)
     const {error} = validate(artist);
     if(error)return res.status(400).send(error);
+    console.log('made it past validation')
     // save to DataBase 
     const dbArtist = new Artist(artist)
+    console.log('made new artist')
     user.artists.push(dbArtist)
     user.save()
+    console.log('saved artist')
     res.send(dbArtist);
     }
     catch(err){res.status(400).send(err)}
