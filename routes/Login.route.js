@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 
 router.post('/', async (req,res)=>{
-    console.log(req);
+    console.log(req.body);
     // Checking for incorrect entries
     const {error} =  loginValidation(req.body);
     if(error)return res.status(400).send(error)
@@ -15,6 +15,7 @@ router.post('/', async (req,res)=>{
     const user = await User.findOne({email:req.body.email});
     if(!user)return res.status(400).send('Email or Password is incorrect');
     console.log('made it past log in validation')
+    console.log(user)
     //Checking Password
     const validPassword = await bcryptjs.compare(req.body.password,user.password)
     if(!validPassword)return res.status(400).send('Email or Password is incorrect');
