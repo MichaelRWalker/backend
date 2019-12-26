@@ -7,6 +7,6 @@ const schema = Joi.object({
     members:Joi.array(),
     notes:Joi.string().allow(''),
     totalOwed:Joi.number(),
-})
+});
 
 module.exports = (data)=> schema.validate(data) ;

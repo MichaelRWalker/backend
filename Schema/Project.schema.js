@@ -10,6 +10,6 @@ const projectSchema = mongoose.Schema({
     startDate:Date,
     finishDate:Date,
     payments:[payments]
-})
+});
 
 module.exports = projectSchema;

@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const path = require('path')
+const path = require('path');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cors = require('cors')
+const cors = require('cors');
 // Adding our dotenv file
 dotenv.config();
 
@@ -28,10 +28,10 @@ mongoose.connect(
     () => {
         console.log('Connected To MongoDB sucessfully')
     }
-)
+);
 
 // Adding app Middlewares
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use('/login', loginRoute);
 app.use('/user', userRoute);
@@ -43,4 +43,4 @@ app.use('/appointment', appointmentRoute);
 
 app.listen(port, () => {
     console.log(`Server is now listening on port : ${port}`)
-})
+});

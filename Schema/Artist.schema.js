@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const projects = require('./Project.schema')
+const projects = require('./Project.schema');
 
 
 const artistSchema = mongoose.Schema({
@@ -12,6 +12,6 @@ const artistSchema = mongoose.Schema({
     totalOwed:Number
 },{
     timestamp:true
-})
+});
 
-module.exports = artistSchema
+module.exports = artistSchema;

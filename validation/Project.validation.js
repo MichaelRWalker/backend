@@ -7,7 +7,7 @@ const schema = Joi.object({
     projectName:Joi.string().required(),
     startDate:Joi.date(),
     finishDate:Joi.date()
-})
+});
 
 module.exports = (data)=> schema.validate(data) ;
 

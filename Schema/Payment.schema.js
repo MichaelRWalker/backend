@@ -6,6 +6,6 @@ const paymentSchema = mongoose.Schema({
 },
 {
     timestamp:true
-})
+});
 
-module.exports = paymentSchema
+module.exports = paymentSchema;

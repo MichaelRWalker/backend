@@ -9,6 +9,6 @@ const appointmentSchema = mongoose.Schema({
 {
     timestamp:true
 }
-)
+);
 
-module.exports = appointmentSchema
+module.exports = appointmentSchema;

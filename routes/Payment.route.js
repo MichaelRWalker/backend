@@ -30,10 +30,10 @@ router.put('/:artistId/:projectId/:id',verify,getProject,(req,res)=>{
     const {error} = validation(req.body);
     if(error)return res.status(400).send(error);
     
-    const paymentId = req.params.id
-    const payment = project.payments.id(paymentId)
+    const paymentId = req.params.id;
+    const payment = project.payments.id(paymentId);
 
-    payment.set(req.body)
+    payment.set(req.body);
 
     user.save();
     res.send('Payment updated')
@@ -41,7 +41,7 @@ router.put('/:artistId/:projectId/:id',verify,getProject,(req,res)=>{
 router.delete('/:artistId/:projectId/:id',verify,getProject,(req,res)=>{
     const user = req.dbUser;
     const project = req.project;
-    const sessionID = req.params.id
+    const sessionID = req.params.id;
 
     project.payments.id(sessionID).remove();
 
@@ -49,4 +49,4 @@ router.delete('/:artistId/:projectId/:id',verify,getProject,(req,res)=>{
     res.send('Payment deleted')
 });
 
-module.exports = router
+module.exports = router;

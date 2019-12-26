@@ -5,6 +5,6 @@ const schema = Joi.object({
     action:Joi.string(),
     cost:Joi.number(),
     date:Joi.date()
-})
+});
 
 module.exports = (data)=> schema.validate(data) ;

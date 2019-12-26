@@ -7,7 +7,7 @@ router.get('/',verify,async(req,res)=>{
     // find user
     const userID = req.user._id;
     const user = await User.findById(userID);
-    if(!user)return res.status(400).send('User Not Found')
+    if(!user)return res.status(400).send('User Not Found');
     // return appointments
     res.send(user.appointments);
     
@@ -16,7 +16,7 @@ router.post('/',verify,async(req,res)=>{
     // find user
     const userID = req.user._id;
     const user = await User.findById(userID);
-    if(!user)return res.status(400).send('User Not Found')
+    if(!user)return res.status(400).send('User Not Found');
     // validate appointment
     const {error} = validation(req.body);
     if(error)return res.status(400).send(error);
@@ -32,7 +32,7 @@ router.put('/:id',verify,async(req,res)=>{
     // find user
     const userID = req.user._id;
     const user = await User.findById(userID);
-    if(!user)return res.status(400).send('User Not Found')
+    if(!user)return res.status(400).send('User Not Found');
     // validate appointment
     const {error} = validation(req.body);
     if(error)return res.status(400).send(error);
@@ -49,7 +49,7 @@ router.delete('/:id',verify,async(req,res)=>{
     // find user
     const userID = req.user._id;
     const user = await User.findById(userID);
-    if(!user)return res.status(400).send('User Not Found')
+    if(!user)return res.status(400).send('User Not Found');
 
     // add appointment
     const appId = req.params.id;
@@ -60,4 +60,4 @@ router.delete('/:id',verify,async(req,res)=>{
     res.send('Appointment Removed');
 });
 
-module.exports = router
+module.exports = router;

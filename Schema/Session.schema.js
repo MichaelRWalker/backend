@@ -6,6 +6,6 @@ const sessionSchema = mongoose.Schema({
     cost:Number,
     date:Date
 
-},{timestamp:true})
+},{timestamp:true});
 
-module.exports = sessionSchema
+module.exports = sessionSchema;

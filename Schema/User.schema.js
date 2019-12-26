@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const artists = require('./Artist.schema');
-const appointments = require('../Schema/Appointment.schema')
+const appointments = require('../Schema/Appointment.schema');
 
 const userSchema = mongoose.Schema({
     name:String,
@@ -10,6 +10,6 @@ const userSchema = mongoose.Schema({
     password:String,
     artists:[artists],
     appointments:[appointments]
-})
+});
 
-module.exports = userSchema
+module.exports = userSchema;
