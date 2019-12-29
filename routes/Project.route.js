@@ -48,11 +48,14 @@ router.put('/:artistId/:id',verify,async(req,res)=>{
     const projectId = req.params.id;
     const project = artist.projects.id(projectId);
     if(!project) return res.status(400).send('Project not found');
+     
+    const {tracks,deposit,projectName,startDate,finishDate} = project;
+    const dataForDB = {tracks,deposit,projectName,startDate,finishDate}; 
     
-    const {error} = validation(req.body);
-    if(error)return res.status(400).send(error);
-    
-    project.set(req.body);
+    const {error} = validation(dataForDB);
+    if(error)return console.log(error) && res.status(400).send(error.details[0].message);
+
+    project.set(dataForDB);
     user.save();
     res.send('Project was updated')
 
