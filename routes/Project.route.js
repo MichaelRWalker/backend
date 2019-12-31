@@ -3,7 +3,7 @@ const {User ,Project} = require('../models/models');
 const verify = require('../middlewares/verify');
 const validation = require('../validation/Project.validation');
 
-let user
+let user;
 
 router.get('/:artistId',verify,async(req,res)=>{
     // find user 

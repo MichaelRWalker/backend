@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -26,7 +25,7 @@ mongoose.connect(
         useNewUrlParser: true
     },
     () => {
-        console.log('Connected To MongoDB sucessfully')
+        console.log('Connected To MongoDB successfully')
     }
 );
 

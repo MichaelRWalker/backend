@@ -8,6 +8,5 @@ const schema = Joi.object({
     password:Joi.string().min(8).max(1024),
 });
 
-let validation = 
 
 module.exports = (data)=> schema.validate(data) ;

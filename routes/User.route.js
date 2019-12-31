@@ -35,7 +35,7 @@ router.post('/',async(req,res)=>{
 // Gets a user and returns non-sensitive material
 router.get('/:id',verify,async (req,res)=>{
     const userId = req.params.id;
-    const user = await User.findById(userId)
+    await User.findById(userId)
     .then((user)=>res.send(user))
   });
 
@@ -59,9 +59,8 @@ router.put('/:id',verify,async(req,res)=>{
     if(error)return res.status(400).send(error);
 
     const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(password,salt);
 
-    password = hashedPassword;
+    password =  await bcryptjs.hash(password,salt);
 
     const userId = req.params.id;
     const databaseUser = await User.findById(userId);

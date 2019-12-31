@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {User , Session} = require('../models/models');
+const {Session} = require('../models/models');
 const validation = require('../validation/Session.validation');
 const getProject = require('../middlewares/getProject');
 const verify = require('../middlewares/verify');
