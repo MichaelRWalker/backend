@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev":"nodemon index"
+    "dev": "nodemon index",
+    "e2eTest": ""
   },
   "keywords": [],
   "engine": {
@@ -14,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "newman": "^4.5.7",
     "nodemon": "^2.0.2"
   },
   "dependencies": {

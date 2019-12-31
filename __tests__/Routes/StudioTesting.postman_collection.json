@@ -1,0 +1,1228 @@
+{
+	"info": {
+		"_postman_id": "a3a31843-cc0a-49bc-ae38-6df801a0d52e",
+		"name": "Studio Crm End to End Testing",
+		"description": "These are Route Tests for adding a new user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register New User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e911c4a9-4e4e-48f3-9290-ec85eeb763e6",
+						"exec": [
+							"let resData = JSON.parse(responseBody)",
+							"pm.globals.set(\"id\", resData._id);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\":\"Michael Richard Walker\",\r\n\t\"email\":\"PostHeroku@Test.com\",\r\n\t\"password\":\"234wsxedc\",\r\n\t\"studioName\":\"Heroku Studio\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/user/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"user",
+						""
+					]
+				},
+				"description": "Test new User Route"
+			},
+			"response": []
+		},
+		{
+			"name": "Log In Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f07a0836-899a-4d42-ae64-c8ab68ae1958",
+						"exec": [
+							" pm.globals.set(\"auth-token\", responseHeaders['auth-token']);",
+							" ",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\r\n\t\"email\":\"PostHeroku@Test.com\",\r\n\t\"password\":\"234wsxedc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/login/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Artist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34871523-1205-411d-8f8c-8f84570ebcc5",
+						"exec": [
+							"let resData = JSON.parse(responseBody)",
+							"pm.globals.set(\"artistId\", resData._id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"The Reverend and the Roots\",\n\t\"genre\":\"Folk Rock\",\n\t\"email\":\"TheRev@TheRoots.com\",\n\t\"members\":[\"Michael Walker\"],\n\t\"notes\":\"This guy is okay at music honestly\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/artist/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"artist",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "24495578-03b1-4dfd-9f0a-58b7f06fc707",
+						"exec": [
+							"let resData = JSON.parse(responseBody)",
+							"pm.globals.set(\"projectId\", resData._id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tracks\":12,\n\t\"deposit\":250,\n\t\"projectName\":\"The Gators and The Goose\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/project/{{artistId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"project",
+						"{{artistId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a613e3cf-de2e-4c84-9fb2-f0e038b1b2f1",
+						"exec": [
+							"let resData = JSON.parse(responseBody)",
+							"pm.globals.set(\"sessionId\", resData._id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hours\":12,\n\t\"action\":\"Recorded Guitar\",\n\t\"cost\":12,\n\t\"date\":\"2019-12-18T06:01:43.067Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/session/{{artistId}}/{{projectId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"session",
+						"{{artistId}}",
+						"{{projectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "691d4465-c43f-44e2-b24c-bf9084e58cc1",
+						"exec": [
+							"let resData = JSON.parse(responseBody)",
+							"pm.globals.set(\"paymentId\", resData._id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\":\"2019-12-18T06:01:43.067Z\",\n\t\"amount\":150\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/payment/{{artistId}}/{{projectId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"payment",
+						"{{artistId}}",
+						"{{projectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef6c4b7a-1a90-4478-9bb0-e28ddda852b8",
+						"exec": [
+							"let resData = JSON.parse(responseBody);",
+							"pm.globals.set(\"appId\", resData._id);",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"artist\":\"The Reverend and The Roots\",\t\n\t\"date\":\"2019-12-18T18:50:33.077Z\",\n\t\"time\":\"2019-12-18T18:50:33.077Z\",\n\t\"location\":\"The Studio\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/appointment/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"appointment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01672b3a-8a73-43c7-b082-51189a153f4d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"artist\":\"The Reverend and The Roots\",\t\n\t\"date\":\"2019-12-19T18:50:33.077Z\",\n\t\"time\":\"2019-12-19T18:50:33.077Z\",\n\t\"location\":\"The Studio\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/appointment/{{appId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"appointment",
+						"{{appId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab515c78-7f1b-4f5a-a756-be7263a8b8e8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\":\"2019-12-18T06:01:43.067Z\",\n\t\"amount\":250\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/payment/{{artistId}}/{{projectId}}/{{paymentId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"payment",
+						"{{artistId}}",
+						"{{projectId}}",
+						"{{paymentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update  Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9b9f08d-f118-457b-8dc9-cdc5b1b65b82",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hours\":12,\n\t\"action\":\"Did nothing\",\n\t\"cost\":12,\n\t\"date\":\"2019-12-18T06:01:43.067Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/session/{{artistId}}/{{projectId}}/{{sessionId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"session",
+						"{{artistId}}",
+						"{{projectId}}",
+						"{{sessionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6373dfc-f063-4289-9bbd-bc413686fc7e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tracks\":12,\n\t\"deposit\":300,\n\t\"projectName\":\"The Gators and The Goose\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/project/{{artistId}}/{{projectId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"project",
+						"{{artistId}}",
+						"{{projectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Artist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c2eba9e-bfe6-412c-9532-5ce3d6fd83b4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"The Reverend and the Roots\",\n\t\"genre\":\"Folk Rock\",\n\t\"email\":\"TheRev@TheRoots.com\",\n\t\"members\":[\"Michael Walker\",\"The Reverends Root Juice\"],\n\t\"notes\":\"This guy is okay at music honestly\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/artist/{{artistId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"artist",
+						"{{artistId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e626697-a6b7-4a8f-aec7-a1d9d534c2b8",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGU0NzY0ZjNmOGE5NjJhZjgwZGY0YTAiLCJpYXQiOjE1NzUzMTYyOTN9.i84-M_VLf02XRSKN9V9694HKcEYnMdo-k0Q5b9N-7Z4",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\":\"Tom Spanks\",\r\n\t\"email\":\"automation@Test.com\",\r\n\t\"password\":\"123qazwsx331\",\r\n\t\"studioName\":\"my Automation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/user/{{id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"user",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a0d01c0-2f03-4bf5-9fab-232cda2f61e5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/appointment/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"appointment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6510f2b0-bfd1-4596-acd5-9559bb2731c1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/payment/{{artistId}}/{{projectId}}/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"payment",
+						"{{artistId}}",
+						"{{projectId}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sessions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f927e1f7-9482-42e5-970c-38a50570e4c1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/session/{{artistId}}/{{projectId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"session",
+						"{{artistId}}",
+						"{{projectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b61bcdd7-84b8-4f5b-a2b7-45cac3658d03",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/project/{{artistId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"project",
+						"{{artistId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Artist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89a46d63-7323-4dd9-91c4-3651442c11c4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/artist/",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"artist",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b4e3343-2039-49cb-b8de-eb95ebcae128",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"return name correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eql(\"Tom Spanks\");",
+							"});",
+							"pm.test(\"return studio name correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.studioName).to.eql(\"my Automation\");",
+							"",
+							"});",
+							"pm.test(\"return email correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.email).to.eql(\"automation@Test.com\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGU0NzY0ZjNmOGE5NjJhZjgwZGY0YTAiLCJpYXQiOjE1NzUzMTYyOTN9.i84-M_VLf02XRSKN9V9694HKcEYnMdo-k0Q5b9N-7Z4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/user/{{id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"user",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4342ca33-f7cb-4af7-af3e-473b36e166da",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/appointment/{{appId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"appointment",
+						"{{appId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cbf084e3-0e1f-43bc-bc1b-32c29e1c2eee",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/payment/{{artistId}}/{{projectId}}/{{paymentId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"payment",
+						"{{artistId}}",
+						"{{projectId}}",
+						"{{paymentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a03ab401-6ecc-4946-bb01-66679151ec10",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/session/{{artistId}}/{{projectId}}/{{sessionId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"session",
+						"{{artistId}}",
+						"{{projectId}}",
+						"{{sessionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd13b839-d0e0-4f28-97aa-f5dd11fec9aa",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/project/{{artistId}}/{{projectId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"project",
+						"{{artistId}}",
+						"{{projectId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Artist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2c1cd11-9caa-4f95-82fd-f54620a7185c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "{{auth-token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/artist/{{artistId}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"artist",
+						"{{artistId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting a user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3bac173c-b3a1-45a8-809c-30f1afa18eb2",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8852330-33ff-4be3-b227-cc56a8f8201a",
+						"exec": [
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"User Was Deleted\");",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGU0NzY0ZjNmOGE5NjJhZjgwZGY0YTAiLCJpYXQiOjE1NzUzMTYyOTN9.i84-M_VLf02XRSKN9V9694HKcEYnMdo-k0Q5b9N-7Z4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurl}}/user/{{id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"user",
+						"{{id}}"
+					]
+				},
+				"description": "This route should delete a user"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "351d5e9d-b556-4d0d-961e-1fd97a143a47",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "837b32c8-0107-4095-b5b1-ea2774b4d7da",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
