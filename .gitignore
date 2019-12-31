@@ -112,3 +112,5 @@ node_modules/widest-line/package.json
 node_modules/write-file-atomic/package.json
 node_modules/xdg-basedir/package.json
 node_modules/yallist/package.json
+.idea/backend.iml
+*.xml
