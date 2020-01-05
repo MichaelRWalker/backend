@@ -3,6 +3,8 @@ const {User , Appointment} = require('../models/models');
 const validation = require('../validation/Appointment.validation');
 const verify = require('../middlewares/verify');
 
+
+
 router.get('/',verify,async(req,res)=>{
     // find user
     const userID = req.user._id;
@@ -59,5 +61,6 @@ router.delete('/:id',verify,async(req,res)=>{
     user.save();
     res.send('Appointment Removed');
 });
+
 
 module.exports = router;
